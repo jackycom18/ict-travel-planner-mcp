@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "amap-maps-streamableHTTP": {
+      "url": "https://mcp.amap.com/mcp?key=请替换为高德开放平台Web服务Key",
+      "type": "streamableHttp"
+    }
+  }
+}

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="南京劳动节三日智能行程规划，包含天气、景点、打车路线与地图。">
+  <title>金陵三日 · 智能行程规划</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__topline">
+        <div class="brand">
+          <span class="brand__seal" aria-hidden="true">宁</span>
+          <span>金陵行记</span>
+        </div>
+        <div class="mcp-badge">
+          <span class="pulse-dot"></span>
+          AMAP MCP · OFFLINE DEMO
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <div class="hero__copy">
+          <p class="kicker">2026 · 劳动节特别计划</p>
+          <h1>把南京的春光<br>收进三天里。</h1>
+          <p class="hero__lead">
+            从钟山松涛到秦淮灯影，路线根据开放时间、天气和车程串联。
+            每段移动都预留了打车缓冲，走得从容，也看得尽兴。
+          </p>
+          <div class="hero__meta">
+            <span>05.01—05.03</span>
+            <span>9 个目的地</span>
+            <span>2 人同行</span>
+          </div>
+        </div>
+
+        <aside class="brief-card" aria-label="AI 行程摘要">
+          <span class="brief-card__label">AI PLAN BRIEF</span>
+          <p>第一天看钟山，第二天读城史，第三天收束于城南烟火。</p>
+          <ul>
+            <li><b>节奏</b> 上午重点景区，下午城市漫游</li>
+            <li><b>交通</b> 景点之间全部打车</li>
+            <li><b>天气</b> 5 月 3 日备一把轻便雨伞</li>
+          </ul>
+        </aside>
+      </div>
+
+      <section class="weather-strip" aria-label="三天天气">
+        <div class="weather-strip__heading">
+          <span>未来三日</span>
+          <small>南京 · 示例 MCP 数据</small>
+        </div>
+        <div id="weatherList" class="weather-list"></div>
+      </section>
+    </header>
+
+    <main class="content-grid">
+      <section class="itinerary-panel" aria-labelledby="itinerary-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">Daily route</p>
+            <h2 id="itinerary-title">三日行程</h2>
+          </div>
+          <span id="spotCount" class="count-chip">3 个目的地</span>
+        </div>
+
+        <div id="dayTabs" class="day-tabs" role="tablist" aria-label="选择日期"></div>
+
+        <div class="date-banner">
+          <div>
+            <span class="date-banner__day" data-active-date>5月1日</span>
+            <span class="date-banner__week">周五 · 晴</span>
+          </div>
+          <div class="date-banner__summary">
+            <span>钟山风景区</span>
+            <span>约 8 小时</span>
+          </div>
+        </div>
+
+        <div id="itineraryList" class="itinerary-list" aria-live="polite"></div>
+      </section>
+
+      <section class="map-panel" aria-labelledby="map-title">
+        <div class="section-heading section-heading--map">
+          <div>
+            <p class="kicker">Navigation</p>
+            <h2 id="map-title">路线地图</h2>
+          </div>
+          <span class="map-status">打车路线已连接</span>
+        </div>
+
+        <div class="map-frame">
+          <svg class="city-map" viewBox="0 0 720 700" role="img" aria-label="南京三日行程路线图">
+            <defs>
+              <linearGradient id="mapBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#edf0e7"/>
+                <stop offset="1" stop-color="#dce7df"/>
+              </linearGradient>
+              <filter id="pinShadow" x="-70%" y="-70%" width="240%" height="240%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#1f342d" flood-opacity=".24"/>
+              </filter>
+            </defs>
+            <rect width="720" height="700" rx="26" fill="url(#mapBg)"/>
+            <path class="river" d="M-20 110 C100 55 178 152 300 106 C420 60 500 144 750 72 L750 0 L-20 0Z"/>
+            <path class="river-line" d="M-20 110 C100 55 178 152 300 106 C420 60 500 144 750 72"/>
+            <path class="ridge" d="M475 180 C540 125 632 146 734 204 L734 420 C640 378 552 396 462 330Z"/>
+            <path class="lake" d="M100 365 C138 326 205 323 236 356 C267 390 225 420 171 420 C126 420 89 401 100 365Z"/>
+            <g class="districts">
+              <path d="M74 178 L254 144 L313 278 L207 354 L70 318Z"/>
+              <path d="M289 173 L466 150 L509 306 L364 359 L313 278Z"/>
+              <path d="M508 195 L666 220 L648 390 L514 405 L509 306Z"/>
+              <path d="M150 387 L309 363 L362 526 L218 600 L102 514Z"/>
+              <path d="M349 360 L502 349 L580 518 L440 610 L316 535Z"/>
+            </g>
+            <g class="roads">
+              <path d="M30 238 C170 207 265 261 385 233 S602 200 718 259"/>
+              <path d="M108 590 C188 495 291 487 374 405 S502 267 642 239"/>
+              <path d="M191 94 L261 390 L313 667"/>
+              <path d="M549 84 L510 286 L552 650"/>
+            </g>
+            <g class="map-labels">
+              <text x="94" y="452">长江</text>
+              <text x="520" y="276">紫金山</text>
+              <text x="268" y="432">秦淮区</text>
+              <text x="382" y="214">玄武区</text>
+              <text x="143" y="335">建邺区</text>
+              <text x="534" y="566">雨花台区</text>
+            </g>
+            <g id="routeLayer"></g>
+            <g id="markerLayer"></g>
+          </svg>
+
+          <div class="map-legend">
+            <span><i class="legend-dot legend-dot--start"></i>首站</span>
+            <span><i class="legend-line"></i>打车路线</span>
+            <span><i class="legend-dot"></i>景点</span>
+          </div>
+        </div>
+
+        <div class="map-note">
+          <span class="map-note__icon" aria-hidden="true">AI</span>
+          <div>
+            <b>路线说明</b>
+            <p>地图为南京示意路线，实际导航请在行程开始前使用高德 MCP 重新计算实时路况。</p>
+          </div>
+        </div>
+
+        <section class="tips-panel" aria-labelledby="tips-title">
+          <div class="section-heading">
+            <div>
+              <p class="kicker">Before you go</p>
+              <h2 id="tips-title">旅行小贴士</h2>
+            </div>
+          </div>
+          <div class="tips-grid">
+            <article>
+              <span>01</span>
+              <h3>提前预约</h3>
+              <p>南京博物院和中山陵建议至少提前 2—3 天预约。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>错峰出发</h3>
+              <p>劳动节景区 9 点后客流上升，首站尽量在 8:30 前抵达。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>轻装步行</h3>
+              <p>钟山与牛首山步行较多，建议穿防滑运动鞋并携带饮水。</p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <span>金陵行记 · Nanjing Field Notes</span>
+      <span>Built with Amap MCP / offline demo mode</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
